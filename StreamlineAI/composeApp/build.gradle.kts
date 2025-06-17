@@ -1,5 +1,12 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.*
+
+val envFile = rootProject.file(".env")
+val envProps = Properties()
+if (envFile.exists()) {
+    envFile.inputStream().use { envProps.load(it) }
+}
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -48,6 +55,13 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(projects.shared)
             implementation("androidx.browser:browser:1.7.0")
+
+            implementation(libs.androidx.credentials)
+            implementation(libs.androidx.credentials.play.services.auth)
+            implementation(libs.googleid)
+            implementation(libs.play.services.auth)
+
+            implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -62,13 +76,16 @@ kotlin {
 android {
     namespace = "de.frinshhd.streamlineai"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
-
+    buildFeatures {
+        buildConfig = true
+    }
     defaultConfig {
         applicationId = "de.frinshhd.streamlineai"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        buildConfigField("String", "GOOGLE_CLIENT_ID_ANDROID", "\"${envProps.getProperty("GOOGLE_CLIENT_ID_ANDROID") ?: ""}\"")
     }
     packaging {
         resources {

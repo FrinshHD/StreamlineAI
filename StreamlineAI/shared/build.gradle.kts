@@ -31,6 +31,12 @@ kotlin {
             dependencies { implementation("androidx.browser:browser:1.7.0") }
             implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 
+
+            //implementation(libs.androidx.credentials)
+            //implementation(libs.androidx.credentials.play.services.auth)
+            //implementation(libs.googleid)
+            //implementation(libs.play.services.auth)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
