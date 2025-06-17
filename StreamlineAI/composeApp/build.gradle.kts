@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -18,7 +17,7 @@ kotlin {
         }
     }
     
-    listOf(
+    /*listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
@@ -29,10 +28,10 @@ kotlin {
         }
     }
     
-    jvm("desktop")
+    jvm("desktop")*/
     
     sourceSets {
-        val desktopMain by getting
+        //val desktopMain by getting
         
         androidMain.dependencies {
             implementation(compose.preview)
@@ -48,23 +47,24 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(projects.shared)
+            implementation("androidx.browser:browser:1.7.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-        desktopMain.dependencies {
+        /*desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
-        }
+        }*/
     }
 }
 
 android {
-    namespace = "de.frinshhd.steamlineai"
+    namespace = "de.frinshhd.streamlineai"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "de.frinshhd.steamlineai"
+        applicationId = "de.frinshhd.streamlineai"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -90,14 +90,14 @@ dependencies {
     debugImplementation(compose.uiTooling)
 }
 
-compose.desktop {
+/*compose.desktop {
     application {
-        mainClass = "de.frinshhd.steamlineai.MainKt"
+        mainClass = "de.frinshhd.streamlineai.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "de.frinshhd.steamlineai"
+            packageName = "de.frinshhd.streamlineai"
             packageVersion = "1.0.0"
         }
     }
-}
+}*/

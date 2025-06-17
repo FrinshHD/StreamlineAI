@@ -13,16 +13,24 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
-    iosX64()
+
+    /*iosX64()
     iosArm64()
-    iosSimulatorArm64()
-    
+    iosSimulatorArm64()*/
+
     jvm()
-    
+
     sourceSets {
         commonMain.dependencies {
             // put your Multiplatform dependencies here
+            implementation(libs.ktor.serverAuth)
+            implementation(libs.ktor.clientCore)
+            implementation(libs.ktor.clientCio)
+            implementation(libs.ktor.clientContentNegotiation)
+            implementation(libs.ktor.serializationKotlinxJson)
+            dependencies { implementation("androidx.browser:browser:1.7.0") }
+            implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -31,7 +39,7 @@ kotlin {
 }
 
 android {
-    namespace = "de.frinshhd.steamlineai.shared"
+    namespace = "de.frinshhd.streamlineai.shared"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
