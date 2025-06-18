@@ -1,8 +1,5 @@
 package de.frinshhd.streamlineai
 
-import de.frinshhd.streamlineai.auth.configureGoogleOAuth
-import de.frinshhd.streamlineai.auth.oauthRoutes
-import de.frinshhd.streamlineai.routes.userRoutes
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -14,16 +11,12 @@ object Env {
 }
 
 fun main() {
-    embeddedServer(Netty, port = SERVER_PORT, host = "0.0.0.0", module = Application::module)
+    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
         .start(wait = true)
 }
 
 fun Application.module() {
-    configureGoogleOAuth()
     routing {
-        oauthRoutes()
-        userRoutes()
-
         get("/") {
             call.respondText("Welcome to Streamline AI Backend!")
         }

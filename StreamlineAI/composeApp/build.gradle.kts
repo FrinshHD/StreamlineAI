@@ -43,6 +43,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("io.coil-kt:coil-compose:2.4.0")
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -59,7 +61,9 @@ kotlin {
             implementation(libs.androidx.credentials)
             implementation(libs.androidx.credentials.play.services.auth)
             implementation(libs.googleid)
-            implementation(libs.play.services.auth)
+            implementation(libs.google.play.auth)
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
 
             implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
         }
@@ -86,6 +90,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         buildConfigField("String", "GOOGLE_CLIENT_ID_ANDROID", "\"${envProps.getProperty("GOOGLE_CLIENT_ID_ANDROID") ?: ""}\"")
+        buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${envProps.getProperty("GOOGLE_CLIENT_ID") ?: ""}\"")
     }
     packaging {
         resources {

@@ -2,7 +2,6 @@ package de.frinshhd.streamlineai
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,22 +11,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import coil.compose.AsyncImage
+import de.frinshhd.streamlineai.auth.models.GoogleUser
+import de.frinshhd.streamlineai.auth.ui.GoogleButtonUiContainer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import streamlineai.composeapp.generated.resources.Res
 import streamlineai.composeapp.generated.resources.compose_multiplatform
-
-@Composable
-fun Modifier.themedBackground(color: Color = MaterialTheme.colorScheme.background) =
-    this.then(Modifier.background(color))
-
-@Composable
-fun AppComponents(content: @Composable () -> Unit = {}) {
-    // Add your shared app components here
-    Text("Default AppComponents - override in platform if needed")
-    content()
-}
 
 @Composable
 @Preview
@@ -54,7 +44,30 @@ fun App(content: @Composable () -> Unit = {}) {
                         Text("Compose: $greeting")
                     }
                 }
-                AppComponents(content)
+
+                var signedInUser by remember { mutableStateOf<GoogleUser?>(null) }
+
+                GoogleButtonUiContainer(onGoogleSignInResult = { googleUser ->
+                    val idToken = googleUser?.idToken // Send this idToken to your backend to verify
+                    signedInUser = googleUser
+                }) {
+                    Button(
+                        onClick = { this.onClick() }
+                    ) {
+                        Text("Sign-In with Google")
+                    }
+                }
+
+                if (signedInUser != null) {
+                    Text("Signed in as: ${signedInUser?.displayName ?: "Unknown"}")
+                    AsyncImage(
+                        model = signedInUser?.profilePicUrl,
+                        contentDescription = "User Profile Picture",
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    content()
+                }
             }
         }
     }

@@ -24,7 +24,12 @@ dependencies {
     implementation(libs.ktor.clientCore)
     implementation(libs.ktor.clientCio)
     implementation(libs.ktor.clientContentNegotiation)
-    implementation(libs.ktor.serializationKotlinxJson)
+    implementation(libs.ktor.serverContentNegotiation)
     implementation(libs.ktor.clientApache)
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+    implementation("com.google.api-client:google-api-client:2.0.0")
+    implementation("com.google.http-client:google-http-client-gson:1.42.3")
+    implementation("com.google.apis:google-api-services-oauth2:v2-rev20200213-2.0.0")
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.12.1")
+    //implementation("com.google.http-client:google-http-client-javanet:1.42.3")
 }
