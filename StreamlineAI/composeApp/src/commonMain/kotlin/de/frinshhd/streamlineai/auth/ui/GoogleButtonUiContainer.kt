@@ -6,7 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import de.frinshhd.streamlineai.auth.GoogleAuthProvider
-import de.frinshhd.streamlineai.auth.models.GoogleUser
+import de.frinshhd.streamlineai.models.User
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
@@ -17,7 +17,7 @@ interface GoogleButtonUiContainerScope {
 @Composable
 fun GoogleButtonUiContainer(
     modifier: Modifier = Modifier,
-    onGoogleSignInResult: (GoogleUser?) -> Unit,
+    onGoogleSignInResult: (User?) -> Unit,
     content: @Composable GoogleButtonUiContainerScope.() -> Unit,
 ) {
     val googleAuthProvider = koinInject<GoogleAuthProvider>()

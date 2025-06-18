@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 kotlin {
@@ -45,6 +46,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation("io.coil-kt:coil-compose:2.4.0")
             implementation(libs.koin.android)
+            implementation("io.ktor:ktor-client-android:2.3.9")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -66,6 +68,9 @@ kotlin {
             implementation(libs.koin.compose)
 
             implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+            implementation(libs.ktor.clientCore)
+            implementation(libs.ktor.clientContentNegotiation)
+            implementation(libs.ktor.serializationKotlinxJson)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

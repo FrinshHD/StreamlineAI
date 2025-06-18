@@ -12,8 +12,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import coil.compose.AsyncImage
-import de.frinshhd.streamlineai.auth.models.GoogleUser
 import de.frinshhd.streamlineai.auth.ui.GoogleButtonUiContainer
+import de.frinshhd.streamlineai.models.User
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import streamlineai.composeapp.generated.resources.Res
@@ -45,11 +45,10 @@ fun App(content: @Composable () -> Unit = {}) {
                     }
                 }
 
-                var signedInUser by remember { mutableStateOf<GoogleUser?>(null) }
+                var signedInUser: User? by remember { mutableStateOf<User?>(null) }
 
-                GoogleButtonUiContainer(onGoogleSignInResult = { googleUser ->
-                    val idToken = googleUser?.idToken // Send this idToken to your backend to verify
-                    signedInUser = googleUser
+                GoogleButtonUiContainer(onGoogleSignInResult = { user ->
+                    signedInUser = user
                 }) {
                     Button(
                         onClick = { this.onClick() }
@@ -61,7 +60,7 @@ fun App(content: @Composable () -> Unit = {}) {
                 if (signedInUser != null) {
                     Text("Signed in as: ${signedInUser?.displayName ?: "Unknown"}")
                     AsyncImage(
-                        model = signedInUser?.profilePicUrl,
+                        model = signedInUser?.pictureUrl,
                         contentDescription = "User Profile Picture",
                         modifier = Modifier.fillMaxWidth()
                     )

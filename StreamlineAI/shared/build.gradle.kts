@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.21"
 }
 
 kotlin {
@@ -34,10 +35,6 @@ kotlin {
             implementation(libs.koin.core)
 
 
-            //implementation(libs.androidx.credentials)
-            //implementation(libs.androidx.credentials.play.services.auth)
-            //implementation(libs.googleid)
-            //implementation(libs.play.services.auth)
 
         }
         commonTest.dependencies {
